@@ -85,3 +85,61 @@ document.getElementById("add-product-form")?.addEventListener("submit", addProdu
 // Initial render on page load
 renderProducts();
 
+
+
+
+function updateProduct(event) {
+    event.preventDefault();
+
+    const searchKey = document.getElementById("update-id").value.trim().toLowerCase();
+    if (!searchKey) {
+        alert("Please enter a Product ID or Name to update.");
+        return;
+    }
+
+    const target = products.find(
+        (item) =>
+            String(item.id).toLowerCase() === searchKey ||
+            String(item.name).toLowerCase() === searchKey
+    );
+
+    if (!target) {
+        alert("No matching product found.");
+        return;
+    }
+
+    const newPriceRaw = document.getElementById("update-price").value.replace(/[^0-9.]/g, "").trim();
+    const newQtyRaw = document.getElementById("update-qty").value.replace(/[^0-9]/g, "").trim();
+    const newSize = document.getElementById("update-size").value.trim();
+    const newType = document.getElementById("update-type").value.trim();
+    const newDetail = document.getElementById("update-detail").value.trim();
+
+    const fileInput = document.getElementById("update-img");
+    if (fileInput && fileInput.files && fileInput.files[0]) {
+        target.imgUrl = URL.createObjectURL(fileInput.files[0]);
+    }
+
+    if (newPriceRaw !== "") {
+        target.price = Number(newPriceRaw);
+    }
+    if (newQtyRaw !== "") {
+        target.qty = Number(newQtyRaw);
+    }
+    if (newSize !== "") {
+        target.size = newSize;
+    }
+    if (newType !== "") {
+        target.type = newType;
+    }
+    if (newDetail !== "") {
+        target.description = newDetail;
+    }
+
+    console.log("Updated product:", target);
+    renderProducts();
+
+    document.getElementById("update-product-form").reset();
+    if (fileInput) fileInput.value = "";
+}
+
+document.getElementById("update-product-form")?.addEventListener("submit", updateProduct);
