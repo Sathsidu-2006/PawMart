@@ -90,3 +90,24 @@ a:hover{
     transition: 0.5s;
     transform: translateX(4px);
 }
+
+section {
+    width: 100%;
+    padding: 30px; /* moves outer spacing to the section wrapper */
+}
+
+.pos-system{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 280px)); /* keeps default card width even with 1 item */
+    justify-content: start;
+    align-content: start;   /* prevents rows from stretching vertically to fill the 100vh section */
+    align-items: stretch;   /* makes all cards in a row match the tallest card's height */
+    gap: 10px;
+    width: 100%;
+    min-height: calc(100vh - 60px);
+    padding: 20px;
+    border: 2px solid rgba(215, 214, 214, 0.292);
+    border-radius: 10px;
+    backdrop-filter: blur(20px);
+    color: white;
+}
