@@ -1,0 +1,110 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* keeps background steady when scrolling to section 2 */
+    min-height: 100vh;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    height: calc(100vh - 60px); /* accounts for 30px top & bottom section padding */
+}
+
+.left-container {
+    border: 2px solid rgba(215, 214, 214, 0.292);
+    flex: 1;
+    height: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* optional: vertically centers items */
+    gap: 12px;           /* optional: space between items */
+    flex-wrap: wrap;
+}
+
+.right-container {
+    border: 2px solid rgba(215, 214, 214, 0.292);
+    flex: 4;
+    height: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    backdrop-filter: blur(20px);
+    min-width: 0;
+}
+
+.logo {
+    margin: 0;
+    height: 100px;
+    margin-bottom: 3px;
+    filter: drop-shadow(0 0 30px #4eee76);
+}
+
+
+
+.list-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    color: white;
+}
+
+.list-container li {
+    margin-bottom: 15px;
+}
+
+.heading{
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+a{
+    display: block;
+    width: 180px; /* adjust to fit your longest menu label */
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px 5px 10px;
+    border: 2px solid rgba(215, 214, 214, 0.292);
+    border-radius: 10px;
+    transition: 0.7s;
+
+}
+
+a:hover{
+    background-color: #72B48A;
+    transition: 0.5s;
+    transform: translateX(4px);
+}
+
+section {
+    width: 100%;
+    padding: 30px; /* moves outer spacing to the section wrapper */
+}
+
+.add-inventory-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    min-height: calc(100vh - 60px); /* makes it a full-screen section below .main */
+    padding: 20px;
+    border: 2px solid rgba(215, 214, 214, 0.292);
+    border-radius: 10px;
+    backdrop-filter: blur(20px);
+    color: white;
+}

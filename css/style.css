@@ -81,9 +81,11 @@ a{
     padding: 5px 10px 5px 10px;
     border: 2px solid rgba(215, 214, 214, 0.292);
     border-radius: 10px;
+    transition: 0.7s;
 
 }
 
 a:hover{
     background-color: #72B48A;
+    transition: 0.5s;
 }
