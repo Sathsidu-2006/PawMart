@@ -42,9 +42,135 @@
 
 
             <div class="right-container">
+                <div class="crud-grid">
+
+                    <!-- 1. Add Product Card -->
+                    <div class="crud-card">
+                        <h3 class="crud-title">Add Product</h3>
+                        <div class="add-img-container">
+                            <label for="add-img">Select Product Image :</label>
+                            <input type="file" id="add-img" accept="image/*" required>
+                        </div>
+
+                        <form action="" class="product-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="add-name">Product ID</label>
+                                    <input type="text" id="add-name" placeholder="e.g : PTS0001">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="add-name">Product Name</label>
+                                    <input type="text" id="add-name" placeholder="Oversized Tee">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="add-price">Price</label>
+                                    <input type="text" id="add-price" placeholder="$28.00">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="add-size">Size</label>
+                                    <input type="text" id="add-size" placeholder="Medium">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="add-type">Type</label>
+                                    <input type="text" id="add-type" placeholder="T-Shirt">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="add-qty">Quantity</label>
+                                    <input type="text" id="add-qty" placeholder="45">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="add-img">Image URL</label>
+                                    <input type="text" id="add-img" placeholder="assets/tee.jpg">
+                                </div>
+
+                                <div class="form-group full-span">
+                                    <label for="add-detail">Product Detail</label>
+                                    <input type="text" id="add-detail" placeholder="Short description of the item">
+                                </div>
+                            </div>
+
+                            <input type="submit" value="Add Product" class="submit-btn btn-add">
+                        </form>
+                    </div>
+
+                    <!-- 2. Update Product Card -->
+                    <div class="crud-card">
+                        <h3 class="crud-title">Update Product</h3>
+                        <div class="add-img-container">
+                            <label for="add-img">Select Product Image :</label>
+                            <input type="file" id="add-img" accept="image/*" required>
+                        </div>
+
+                        <form action="" class="product-form">
+                            <div class="form-grid">
+                                <div class="form-group full-span">
+                                    <label for="update-id">Product ID / Name</label>
+                                    <input type="text" id="update-id" placeholder="Enter ID or name to update">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="update-price">New Price</label>
+                                    <input type="text" id="update-price" placeholder="$32.00">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="update-qty">New Quantity</label>
+                                    <input type="text" id="update-qty" placeholder="60">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="update-size">New Size</label>
+                                    <input type="text" id="update-size" placeholder="Large">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="update-type">New Type</label>
+                                    <input type="text" id="update-type" placeholder="Hoodie">
+                                </div>
+
+                                <div class="form-group full-span">
+                                    <label for="update-detail">Updated Detail</label>
+                                    <input type="text" id="update-detail" placeholder="Updated description">
+                                </div>
+                            </div>
+
+                            <input type="submit" value="Update Product" class="submit-btn btn-update">
+                        </form>
+                    </div>
+
+                    <!-- 3. Delete Product Card -->
+                    <div class="crud-card">
+                        <h3 class="crud-title">Delete Product</h3>
+                        <div class="add-img-container">
+                            <label for="add-img">Select Product Image :</label>
+                            <input type="file" id="add-img" accept="image/*" required></p>
+                        </div>
+
+                        <form action="" class="product-form">
+                            <div class="form-grid">
+                                <div class="form-group full-span">
+                                    <label for="delete-id">Product ID / Name</label>
+                                    <input type="text" id="delete-id" placeholder="Enter ID or product name">
+                                </div>
+
+                                <div class="form-group full-span">
+                                    <label for="delete-reason">Reason (Optional)</label>
+                                    <input type="text" id="delete-reason" placeholder="Discontinued / Sold out">
+                                </div>
+                            </div>
+
+                            <input type="submit" value="Delete Product" class="submit-btn btn-delete">
+                        </form>
+                    </div>
+                </div>
 
             </div>
-        </div>
     </section>
 
     <section id="inventory-section">
@@ -53,12 +179,14 @@
 
             <div class="product-container">
                 <div class="product-img-container">
-                    <img src="https://media.cos.com/assets/001/17/55/17559d0d864a1a24ce309233b7577774d604ae5c_xxl-1.jpg?imwidth=2160" alt="Premium Adult Dog Food" class="product-img">
+                    <img src="https://media.cos.com/assets/001/17/55/17559d0d864a1a24ce309233b7577774d604ae5c_xxl-1.jpg?imwidth=2160"
+                        alt="Premium Adult Dog Food" class="product-img">
                 </div>
                 <div class="product-detail-container">
                     <h3 class="product-title">Oversized Heavyweight Cotton Tee</h3>
                     <p class="product-price">$28.00</p>
-                    <p class="product-desc">Relaxed-fit crewneck t-shirt crafted from 240gsm combed organic cotton with dropped shoulders and a ribbed collar for everyday wear.</p>
+                    <p class="product-desc">Relaxed-fit crewneck t-shirt crafted from 240gsm combed organic cotton with
+                        dropped shoulders and a ribbed collar for everyday wear.</p>
                     <span class="product-qty">product Size : Medium</span>
                     <span class="product-qty">Qty: 45 in stock</span>
                     <span class="product-qty">product type : T-Shirt</span>
@@ -67,12 +195,14 @@
 
             <div class="product-container">
                 <div class="product-img-container">
-                    <img src="https://media.cos.com/assets/001/17/55/17559d0d864a1a24ce309233b7577774d604ae5c_xxl-1.jpg?imwidth=2160" alt="Premium Adult Dog Food" class="product-img">
+                    <img src="https://media.cos.com/assets/001/17/55/17559d0d864a1a24ce309233b7577774d604ae5c_xxl-1.jpg?imwidth=2160"
+                        alt="Premium Adult Dog Food" class="product-img">
                 </div>
                 <div class="product-detail-container">
                     <h3 class="product-title">Oversized Heavyweight Cotton Tee</h3>
                     <p class="product-price">$28.00</p>
-                    <p class="product-desc">Relaxed-fit crewneck t-shirt crafted from 240gsm combed organic cotton with dropped shoulde</p>
+                    <p class="product-desc">Relaxed-fit crewneck t-shirt crafted from 240gsm combed organic cotton with
+                        dropped shoulde</p>
                     <span class="product-qty">product Size : Medium</span>
                     <span class="product-qty">Qty: 45 in stock</span>
                     <span class="product-qty">product type : T-Shirt</span>
