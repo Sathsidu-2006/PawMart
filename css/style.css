@@ -300,7 +300,48 @@ section {
 }
 
 .search-btn:hover {
-    background-color: #5a8c6b;
+    background-color: #083619;
     transition: 0.5s;
     transform: translateX(2px);
+}
+
+.temp-product-container{
+    border: 1px solid rgba(215, 214, 214, 0.28);
+    height: 100%;
+    border-radius: 10px;
+}
+
+.btn-add-cart{
+    margin-top: 5px;
+    border: 2px solid rgba(215, 214, 214, 0.292);
+    border-radius: 10px;
+    background: #72B48A;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    width: 30%;
+    margin-right: 5px;
+    transition: 0.5s;
+}
+
+.btn-buy-now{
+    margin-top: 5px;
+    border: 2px solid rgba(215, 214, 214, 0.292);
+    border-radius: 10px;
+    background: #d20606;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    width: 30%;
+    transition: 0.5s;
+}
+
+.btn-buy-now:hover {
+    transform: translateX(2px);
+    background-color: rgb(107, 4, 4);
+}
+
+.btn-add-cart:hover {
+    transform: translateX(2px);
+    background: #083619;
 }
