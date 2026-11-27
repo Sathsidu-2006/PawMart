@@ -88,4 +88,5 @@ a{
 a:hover{
     background-color: #72B48A;
     transition: 0.5s;
+    transform: translateX(4px);
 }
