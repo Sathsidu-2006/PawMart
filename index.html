@@ -38,7 +38,205 @@
                 </div>
             </div>
 
-            <div class="right-container">
+            <div class="right-container overview-layout">
+
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-label">Today's Revenue</span>
+                            <i class='bx bx-dollar-circle kpi-icon green'></i>
+                        </div>
+                        <h2 class="kpi-value" id="kpi-revenue">$1,284.00</h2>
+                        <span class="kpi-trend positive">+14.2% vs yesterday</span>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-label">Orders Today</span>
+                            <i class='bx bx-receipt kpi-icon green'></i>
+                        </div>
+                        <h2 class="kpi-value" id="kpi-orders">28</h2>
+                        <span class="kpi-trend neutral">Avg. basket: $45.85</span>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-label">Total Stock</span>
+                            <i class='bx bx-package kpi-icon blue'></i>
+                        </div>
+                        <h2 class="kpi-value" id="kpi-stock">412</h2>
+                        <span class="kpi-trend neutral">Across 6 categories</span>
+                    </div>
+
+                    <div class="kpi-card alert-border">
+                        <div class="kpi-header">
+                            <span class="kpi-label">Low Stock Alerts</span>
+                            <i class='bx bx-error-circle kpi-icon amber'></i>
+                        </div>
+                        <h2 class="kpi-value warning-text" id="kpi-low-stock">4 Items</h2>
+                        <span class="kpi-trend warning">Below 5 units remaining</span>
+                    </div>
+                </div>
+
+                <!-- Middle Row: Recent Sales Table (Left) + Low Stock Watchlist (Right) -->
+                <div class="overview-mid-grid">
+                    <div class="glass-panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Recent Transactions</h3>
+                            <a href="index.html#inventory-section" class="panel-link">Open POS</a>
+                        </div>
+
+                        <div class="table-wrapper">
+                            <table class="overview-table">
+                                <thead>
+                                    <tr>
+                                        <th>Bill ID</th>
+                                        <th>Items</th>
+                                        <th>Payment</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-sales-body">
+                                    <tr>
+                                        <td>#INV-1042</td>
+                                        <td>Oversized Cotton Tee (M) x2</td>
+                                        <td><span class="badge badge-card">Card</span></td>
+                                        <td class="amount-cell">$56.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#INV-1041</td>
+                                        <td>Relaxed Cargo Trousers (L) x1</td>
+                                        <td><span class="badge badge-cash">Cash</span></td>
+                                        <td class="amount-cell">$64.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#INV-1040</td>
+                                        <td>Heavyweight Boxy Hoodie (XL) x1</td>
+                                        <td><span class="badge badge-card">Card</span></td>
+                                        <td class="amount-cell">$58.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>#INV-1039</td>
+                                        <td>Ribbed Tank Top (S) x3</td>
+                                        <td><span class="badge badge-cash">Cash</span></td>
+                                        <td class="amount-cell">$45.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Low Stock Watchlist</h3>
+                            <a href="inventory.html" class="panel-link">Restock</a>
+                        </div>
+
+                        <div class="watchlist-container" id="low-stock-list">
+                            <div class="watch-item">
+                                <div class="watch-info">
+                                    <span class="watch-name">Heavyweight Boxy Hoodie</span>
+                                    <span class="watch-meta">Size: Large • Hoodie</span>
+                                </div>
+                                <span class="stock-pill critical">2 left</span>
+                            </div>
+
+                            <div class="watch-item">
+                                <div class="watch-info">
+                                    <span class="watch-name">Selvedge Straight Denim</span>
+                                    <span class="watch-meta">Size: 32 • Bottoms</span>
+                                </div>
+                                <span class="stock-pill critical">3 left</span>
+                            </div>
+
+                            <div class="watch-item">
+                                <div class="watch-info">
+                                    <span class="watch-name">Vintage Wash Graphic Tee</span>
+                                    <span class="watch-meta">Size: Medium • T-Shirt</span>
+                                </div>
+                                <span class="stock-pill low">4 left</span>
+                            </div>
+
+                            <div class="watch-item">
+                                <div class="watch-info">
+                                    <span class="watch-name">Canvas Utility Tote</span>
+                                    <span class="watch-meta">One Size • Accessories</span>
+                                </div>
+                                <span class="stock-pill low">4 left</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Row: Top Categories + Quick Actions -->
+                <div class="overview-bottom-grid">
+                    <div class="glass-panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Top-Selling Categories</h3>
+                            <span class="panel-sub">This Week</span>
+                        </div>
+
+                        <div class="category-bars">
+                            <div class="cat-row">
+                                <div class="cat-labels">
+                                    <span>T-Shirts</span>
+                                    <span>44% (112 units)</span>
+                                </div>
+                                <div class="progress-track">
+                                    <div class="progress-fill" style="width: 44%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="cat-row">
+                                <div class="cat-labels">
+                                    <span>Hoodies &amp; Sweatshirts</span>
+                                    <span>31% (79 units)</span>
+                                </div>
+                                <div class="progress-track">
+                                    <div class="progress-fill" style="width: 31%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="cat-row">
+                                <div class="cat-labels">
+                                    <span>Trousers &amp; Denim</span>
+                                    <span>25% (64 units)</span>
+                                </div>
+                                <div class="progress-track">
+                                    <div class="progress-fill" style="width: 25%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel quick-actions-panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Quick Actions</h3>
+                        </div>
+
+                        <div class="quick-actions-grid">
+                            <a href="index.html#inventory-section" class="action-tile primary-tile">
+                                <i class='bx bx-cart-add'></i>
+                                <span>New POS Sale</span>
+                            </a>
+
+                            <a href="inventory.html" class="action-tile">
+                                <i class='bx bx-plus-circle'></i>
+                                <span>Add Garment</span>
+                            </a>
+
+                            <a href="inventory.html" class="action-tile">
+                                <i class='bx bx-edit'></i>
+                                <span>Update Stock</span>
+                            </a>
+
+                            <a href="#" class="action-tile">
+                                <i class='bx bx-file'></i>
+                                <span>Daily Report</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 

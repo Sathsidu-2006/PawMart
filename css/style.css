@@ -345,3 +345,332 @@ section {
     transform: translateX(2px);
     background: #083619;
 }
+
+
+.overview-layout {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 14px;
+    padding: 14px;
+    overflow-y: auto;
+    color: white;
+}
+
+/* Top Row: 4 KPI Cards */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(160px, 1fr));
+    gap: 12px;
+}
+
+.kpi-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 14px;
+    border-radius: 10px;
+    border: 2px solid rgba(155, 153, 153, 0.35);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+}
+
+.kpi-card.alert-border {
+    border-color: rgba(214, 168, 90, 0.55);
+}
+
+.kpi-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.kpi-label {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.78);
+    font-weight: 500;
+}
+
+.kpi-icon {
+    font-size: 1.25rem;
+}
+
+.kpi-icon.green { color: #72B48A; }
+.kpi-icon.blue  { color: #7cb8ff; }
+.kpi-icon.amber { color: #d6a85a; }
+
+.kpi-value {
+    margin: 0;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.kpi-value.warning-text {
+    color: #f3c46b;
+}
+
+.kpi-trend {
+    font-size: 0.76rem;
+}
+
+.kpi-trend.positive { color: #4eee76; }
+.kpi-trend.neutral  { color: rgba(255, 255, 255, 0.65); }
+.kpi-trend.warning  { color: #d6a85a; }
+
+/* Middle Row: Transactions (1.5fr) + Low Stock (1fr) */
+.overview-mid-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 14px;
+    min-height: 0;
+}
+
+/* Bottom Row: Categories (1.3fr) + Quick Actions (1fr) */
+.overview-bottom-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 14px;
+}
+
+.glass-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px;
+    border-radius: 10px;
+    border: 2px solid rgba(155, 153, 153, 0.35);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    min-height: 0;
+    min-width: 0;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(215, 214, 214, 0.2);
+    padding-bottom: 8px;
+}
+
+.panel-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.panel-sub {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+/* Override global 'a' width inside panels */
+a.panel-link {
+    display: inline-block;
+    width: auto;
+    padding: 4px 10px;
+    font-size: 0.78rem;
+    border-radius: 7px;
+    border: 1px solid rgba(215, 214, 214, 0.35);
+    background: rgba(0, 0, 0, 0.25);
+}
+
+a.panel-link:hover {
+    background-color: #72B48A;
+    color: #0f1712;
+    transform: none;
+}
+
+/* Recent Transactions Table */
+.table-wrapper {
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.overview-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.84rem;
+    text-align: left;
+}
+
+.overview-table th {
+    padding: 8px 6px;
+    color: rgba(255, 255, 255, 0.68);
+    font-weight: 600;
+    border-bottom: 1px solid rgba(215, 214, 214, 0.18);
+}
+
+.overview-table td {
+    padding: 9px 6px;
+    border-bottom: 1px solid rgba(215, 214, 214, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.amount-cell {
+    font-weight: 600;
+    color: #4eee76;
+}
+
+.badge {
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.74rem;
+    font-weight: 600;
+}
+
+.badge-card {
+    background: rgba(124, 184, 255, 0.2);
+    color: #9ecbff;
+}
+
+.badge-cash {
+    background: rgba(114, 180, 138, 0.22);
+    color: #8ee0aa;
+}
+
+/* Low Stock Watchlist */
+.watchlist-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.watch-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(215, 214, 214, 0.16);
+}
+
+.watch-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.watch-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.watch-meta {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.stock-pill {
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.stock-pill.critical {
+    background: rgba(217, 107, 107, 0.25);
+    color: #ff9494;
+}
+
+.stock-pill.low {
+    background: rgba(214, 168, 90, 0.25);
+    color: #f3c46b;
+}
+
+/* Top Categories Progress Bars */
+.category-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cat-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cat-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.progress-track {
+    width: 100%;
+    height: 8px;
+    border-radius: 99px;
+    background: rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #72B48A, #4eee76);
+}
+
+/* Quick Actions Grid */
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    flex: 1;
+}
+
+a.action-tile {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(215, 214, 214, 0.3);
+    background: rgba(0, 0, 0, 0.25);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+a.action-tile i {
+    font-size: 1.35rem;
+    color: #72B48A;
+}
+
+a.action-tile.primary-tile {
+    background: rgba(114, 180, 138, 0.2);
+    border-color: #72B48A;
+}
+
+a.action-tile:hover {
+    background-color: #72B48A;
+    color: #0f1712;
+    transform: translateY(-2px);
+}
+
+a.action-tile:hover i {
+    color: #0f1712;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1100px) {
+    .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .overview-mid-grid,
+    .overview-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+}
