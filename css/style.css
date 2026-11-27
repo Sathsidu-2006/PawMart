@@ -674,3 +674,29 @@ a.action-tile:hover i {
         grid-template-columns: 1fr;
     }
 }
+
+.supplier-right-container{
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 50% 48%; /* searching: 30%, addcart: 48%, bill: 20% */
+    column-gap: 14px;
+    width: 100%;
+    height: calc(100vh - 60px); /* fixed height so percentage rows work reliably */
+    padding: 20px;
+    border: 2px solid rgba(215, 214, 214, 0.292);
+    border-radius: 10px;
+    backdrop-filter: blur(20px);
+    color: white;
+}
+
+.crud-supplier{
+    width: 100%;
+    border: 2px solid rgba(155, 153, 153, 0.35);
+    border-radius: 10px;
+}
+
+.supplier-container{
+    width: 100%; 
+    border: 2px solid rgba(155, 153, 153, 0.35);
+    border-radius: 10px;
+}

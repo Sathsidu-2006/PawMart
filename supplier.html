@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="assets/logof.png">
     <link rel="stylesheet" href="css/inventory.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/supplier.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -38,8 +39,212 @@
                 </div>
             </div>
 
-            <div class="right-container overview-layout">
+            <div class="right-container suppliers-layout">
 
+                <!-- Top Summary Strip -->
+                <div class="supplier-stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-label">Total Suppliers</span>
+                        <strong class="stat-value" id="total-suppliers">6</strong>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Active Vendors</span>
+                        <strong class="stat-value green-text" id="active-suppliers">5</strong>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Avg. Lead Time</span>
+                        <strong class="stat-value" id="avg-lead-time">4 Days</strong>
+                    </div>
+                </div>
+
+                <!-- Main Split: Add/Edit Supplier Form + Supplier Directory -->
+                <div class="suppliers-main-grid">
+
+                    <!-- Left Panel: Supplier Form -->
+                    <div class="glass-panel supplier-form-panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Add Supplier</h3>
+                            <span class="panel-badge">Vendor Record</span>
+                        </div>
+
+                        <form action="" class="supplier-form" id="supplier-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="sup-id">Supplier ID</label>
+                                    <input type="text" id="sup-id" placeholder="SUP-007">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="sup-status">Status</label>
+                                    <select id="sup-status" class="form-select">
+                                        <option value="Active">Active</option>
+                                        <option value="Inactive">Inactive</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group full-span">
+                                    <label for="sup-name">Supplier / Company Name</label>
+                                    <input type="text" id="sup-name" placeholder="e.g. Apex Knitwear Mills" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="sup-contact">Contact Person</label>
+                                    <input type="text" id="sup-contact" placeholder="e.g. Kasun Perera">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="sup-phone">Phone / WhatsApp</label>
+                                    <input type="text" id="sup-phone" placeholder="e.g. +94 77 123 4567" required>
+                                </div>
+
+                                <div class="form-group full-span">
+                                    <label for="sup-email">Email Address</label>
+                                    <input type="email" id="sup-email" placeholder="orders@apexknitwear.lk">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="sup-category">Category Supplied</label>
+                                    <select id="sup-category" class="form-select">
+                                        <option value="T-Shirts">T-Shirts</option>
+                                        <option value="Hoodies">Hoodies &amp; Sweatshirts</option>
+                                        <option value="Denim & Trousers">Denim &amp; Trousers</option>
+                                        <option value="Accessories">Accessories &amp; Bags</option>
+                                        <option value="Raw Fabric & Trim">Raw Fabric &amp; Trim</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="sup-moq">Min. Order (MOQ)</label>
+                                    <input type="text" id="sup-moq" placeholder="e.g. 25 pcs">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="sup-lead">Lead Time (Days)</label>
+                                    <input type="text" id="sup-lead" placeholder="e.g. 3-5 days">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="sup-terms">Payment Terms</label>
+                                    <input type="text" id="sup-terms" placeholder="e.g. Cash / 15 Days">
+                                </div>
+
+                                <div class="form-group full-span">
+                                    <label for="sup-address">Address / Notes</label>
+                                    <input type="text" id="sup-address"
+                                        placeholder="Factory location, delivery days, or return notes">
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="submit-btn btn-add">Save Supplier</button>
+                                <button type="reset" class="reset-btn">Clear</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Right Panel: Search & Suppliers Table -->
+                    <div class="glass-panel supplier-list-panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Supplier Directory</h3>
+                            <div class="search-box">
+                                <i class='bx bx-search'></i>
+                                <input type="text" id="supplier-search"
+                                    placeholder="Search supplier, category, or phone...">
+                            </div>
+                        </div>
+
+                        <div class="table-wrapper">
+                            <table class="suppliers-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Supplier</th>
+                                        <th>Category</th>
+                                        <th>Contact</th>
+                                        <th>MOQ / Lead</th>
+                                        <th>Terms</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="suppliers-table-body">
+                                    <tr>
+                                        <td>SUP-001</td>
+                                        <td>
+                                            <div class="cell-stack">
+                                                <span class="cell-primary">Apex Knitwear Mills</span>
+                                                <span class="cell-sub">Kasun Perera • Colombo</span>
+                                            </div>
+                                        </td>
+                                        <td>T-Shirts</td>
+                                        <td>
+                                            <div class="cell-stack">
+                                                <span class="cell-primary">+94 77 234 5678</span>
+                                                <span class="cell-sub">sales@apexknit.lk</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="cell-stack">
+                                                <span class="cell-primary">30 pcs</span>
+                                                <span class="cell-sub">3-4 days</span>
+                                            </div>
+                                        </td>
+                                        <td>Net 15</td>
+                                        <td><span class="status-badge active">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>SUP-002</td>
+                                        <td>
+                                            <div class="cell-stack">
+                                                <span class="cell-primary">Urban Loom Garments</span>
+                                                <span class="cell-sub">Nadeesha Silva • Wattala</span>
+                                            </div>
+                                        </td>
+                                        <td>Hoodies</td>
+                                        <td>
+                                            <div class="cell-stack">
+                                                <span class="cell-primary">+94 71 890 1122</span>
+                                                <span class="cell-sub">info@urbanloom.lk</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="cell-stack">
+                                                <span class="cell-primary">20 pcs</span>
+                                                <span class="cell-sub">4-6 days</span>
+                                            </div>
+                                        </td>
+                                        <td>Advance 50%</td>
+                                        <td><span class="status-badge active">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>SUP-003</td>
+                                        <td>
+                                            <div class="cell-stack">
+                                                <span class="cell-primary">Ceylon Denim Works</span>
+                                                <span class="cell-sub">Roshan Fernando • Kelaniya</span>
+                                            </div>
+                                        </td>
+                                        <td>Denim &amp; Trousers</td>
+                                        <td>
+                                            <div class="cell-stack">
+                                                <span class="cell-primary">+94 76 554 8899</span>
+                                                <span class="cell-sub">roshan@ceylondenim.lk</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="cell-stack">
+                                                <span class="cell-primary">25 pcs</span>
+                                                <span class="cell-sub">5 days</span>
+                                            </div>
+                                        </td>
+                                        <td>COD</td>
+                                        <td><span class="status-badge inactive">Inactive</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
         </div>
