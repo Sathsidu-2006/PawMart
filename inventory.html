@@ -32,7 +32,6 @@
 
                         <li><span class="heading">Business</span></li>
                         <li><a href="reports.html"><i class='bx bx-bar-chart-alt-2'></i> Reports</a></li>
-                        <li><a href=""><i class='bx bx-money-withdraw'></i> Expenses</a></li>
                         <li><a href=""><i class='bx bx-group'></i> Employees</a></li>
 
                     </ul>
@@ -54,8 +53,8 @@
                         <form action="" class="product-form">
                             <div class="form-grid">
                                 <div class="form-group">
-                                    <label for="add-name">Product ID</label>
-                                    <input type="text" id="add-name" placeholder="e.g : PTS0001">
+                                    <label for="add-id">Product ID</label>
+                                    <input type="text" id="add-id" placeholder="e.g : PTS0001">
                                 </div>
 
                                 <div class="form-group">
@@ -84,8 +83,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="add-img">Image URL</label>
-                                    <input type="text" id="add-img" placeholder="assets/tee.jpg">
+                                    <label for="add-img-url">Image URL</label>
+                                    <input type="text" id="add-img-url" placeholder="assets/tee.jpg">
                                 </div>
 
                                 <div class="form-group full-span">
@@ -94,7 +93,7 @@
                                 </div>
                             </div>
 
-                            <input type="submit" value="Add Product" class="submit-btn btn-add">
+                            <button type="submit" class="submit-btn btn-add" onclick="addProduct(event)">Add Product</button>
                         </form>
                     </div>
 
@@ -139,7 +138,7 @@
                                 </div>
                             </div>
 
-                            <input type="submit" value="Update Product" class="submit-btn btn-update">
+                            <input type="submit" value="Update Product" class="submit-btn btn-update" onclick="updateProduct(event)">
                         </form>
                     </div>
 
@@ -176,41 +175,12 @@
 
         <div class="add-inventory-container">
 
-            <div class="product-container">
-                <div class="product-img-container">
-                    <img src="https://media.cos.com/assets/001/17/55/17559d0d864a1a24ce309233b7577774d604ae5c_xxl-1.jpg?imwidth=2160"
-                        alt="Premium Adult Dog Food" class="product-img">
-                </div>
-                <div class="product-detail-container">
-                    <h3 class="product-title">Oversized Heavyweight Cotton Tee</h3>
-                    <p class="product-price">$28.00</p>
-                    <p class="product-desc">Relaxed-fit crewneck t-shirt crafted from 240gsm combed organic cotton with
-                        dropped shoulders and a ribbed collar for everyday wear.</p>
-                    <span class="product-qty">product Size : Medium</span>
-                    <span class="product-qty">Qty: 45 in stock</span>
-                    <span class="product-qty">product type : T-Shirt</span>
-                </div>
-            </div>
-
-            <div class="product-container">
-                <div class="product-img-container">
-                    <img src="https://media.cos.com/assets/001/17/55/17559d0d864a1a24ce309233b7577774d604ae5c_xxl-1.jpg?imwidth=2160"
-                        alt="Premium Adult Dog Food" class="product-img">
-                </div>
-                <div class="product-detail-container">
-                    <h3 class="product-title">Oversized Heavyweight Cotton Tee</h3>
-                    <p class="product-price">$28.00</p>
-                    <p class="product-desc">Relaxed-fit crewneck t-shirt crafted from 240gsm combed organic cotton with
-                        dropped shoulde</p>
-                    <span class="product-qty">product Size : Medium</span>
-                    <span class="product-qty">Qty: 45 in stock</span>
-                    <span class="product-qty">product type : T-Shirt</span>
-                </div>
-            </div>
+            
 
         </div>
     </section>
 
+    <script src="js/app.js"></script>
 </body>
 
 </html>
