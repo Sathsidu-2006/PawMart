@@ -334,12 +334,12 @@ section {
 
 .btn-update {
     background-color: #d6a85a;
-    color: #17130b;
+    color: #000000;
 }
 
 .btn-delete {
     background-color: #d96b6b;
-    color: #ffffff;
+    color: #000000;
 }
 
 /* Responsive stacking for smaller screens */
