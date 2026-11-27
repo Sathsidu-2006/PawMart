@@ -389,9 +389,10 @@ section {
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.25s ease, transform 0.25s ease;
+
 }
 
 .add-img-container input[type="file"]::file-selector-button:hover {
     background-color: #84c79c;
-    transform: translateY(-1px);
+    transform: translateX(2px);
 }
