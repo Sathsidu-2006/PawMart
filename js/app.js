@@ -143,3 +143,38 @@ function updateProduct(event) {
 }
 
 document.getElementById("update-product-form")?.addEventListener("submit", updateProduct);
+
+
+function deleteProduct(event) {
+    event.preventDefault();
+
+    const searchKey = document.getElementById("delete-id").value.trim().toLowerCase();
+    const reason = document.getElementById("delete-reason").value.trim();
+
+    if (!searchKey) {
+        alert("Please enter a Product ID or Name to delete.");
+        return;
+    }
+
+    const targetIndex = products.findIndex(
+        (item) =>
+            String(item.id).toLowerCase() === searchKey ||
+            String(item.name).toLowerCase() === searchKey
+    );
+
+    if (targetIndex === -1) {
+        alert("No matching product found.");
+        return;
+    }
+
+    const [removedProduct] = products.splice(targetIndex, 1);
+    console.log("Deleted product:", removedProduct, reason ? `Reason: ${reason}` : "");
+
+    renderProducts();
+
+    document.getElementById("delete-product-form").reset();
+    const fileInput = document.getElementById("delete-img");
+    if (fileInput) fileInput.value = "";
+}
+
+document.getElementById("delete-product-form")?.addEventListener("submit", deleteProduct);
