@@ -700,3 +700,98 @@ a.action-tile:hover i {
     border: 2px solid rgba(155, 153, 153, 0.35);
     border-radius: 10px;
 }
+
+
+.temp-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(215, 214, 214, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.temp-img {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.temp-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.8rem;
+}
+
+.temp-info h4 {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.temp-empty,
+.cart-empty {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.88rem;
+    margin: 8px;
+}
+
+.bill-receipt {
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(215, 214, 214, 0.35);
+    background: rgba(0, 0, 0, 0.35);
+    color: #fff;
+}
+
+.bill-header {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-bottom: 1px solid rgba(215, 214, 214, 0.2);
+    padding-bottom: 8px;
+}
+
+.bill-header h3 {
+    margin: 0;
+    color: #72B48A;
+}
+
+.bill-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 0.82rem;
+}
+
+.bill-table th,
+.bill-table td {
+    padding: 6px 4px;
+    border-bottom: 1px solid rgba(215, 214, 214, 0.14);
+    text-align: left;
+}
+
+.bill-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    margin: 10px 0;
+}
+
+.bill-grand-total {
+    color: #4eee76;
+}
+
+.btn-download-pdf {
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #72B48A;
+    color: #0f1712;
+    font-weight: 600;
+    cursor: pointer;
+}

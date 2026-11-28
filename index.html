@@ -249,7 +249,7 @@
                     <div>
                         <label for="">Product ID or Name : </label>
                         <br>
-                        <input type="text" class="search-input" placeholder="Search Product ID or Name">
+                        <input type="text" class="search-input" placeholder="Search Product ID or Name" id="searchtxt">
                         <input type="submit" value="Search" class="search-btn">
                     </div>
                 </div>
@@ -259,84 +259,17 @@
                 </div>
 
                 <div class="btn-container">
-                    <input type="text" class="search-input" placeholder="Enter the Product Quantity" id="product-cart-qty">
+                    <input type="text" class="search-input" placeholder="Enter the Product Quantity"
+                        id="product-cart-qty">
                     <br><br>
-                    <button class="btn-add-cart">+ Add to Cart</button>
-                    <button class="btn-buy-now">Buy Now</button>
+                    <button class="btn-add-cart" onclick="addToCart()">+ Add to Cart</button>
+                    <button class="btn-buy-now" onclick="buyNow()">Buy Now</button>
 
                 </div>
 
             </div>
 
             <div class="addcart-container">
-
-                <div class="product-container">
-                    <div class="product-img-container">
-                        <img src="https://media.cos.com/assets/001/17/55/17559d0d864a1a24ce309233b7577774d604ae5c_xxl-1.jpg?imwidth=2160"
-                            alt="Premium Adult Dog Food" class="product-img">
-                    </div>
-                    <div class="product-detail-container">
-                        <h3 class="product-title">Oversized Heavyweight Cotton Tee</h3>
-                        <p class="product-price">$28.00</p>
-                        <p class="product-desc">Relaxed-fit crewneck t-shirt crafted from 240gsm combed organic cotton
-                            with
-                            dropped shoulders and a ribbed collar for everyday wear.</p>
-                        <span class="product-qty">product Size : Medium</span>
-                        <span class="product-qty">Qty: 45 in stock</span>
-                        <span class="product-qty">product type : T-Shirt</span>
-                    </div>
-                </div>
-
-                <div class="product-container">
-                    <div class="product-img-container">
-                        <img src="https://media.cos.com/assets/001/17/55/17559d0d864a1a24ce309233b7577774d604ae5c_xxl-1.jpg?imwidth=2160"
-                            alt="Premium Adult Dog Food" class="product-img">
-                    </div>
-                    <div class="product-detail-container">
-                        <h3 class="product-title">Oversized Heavyweight Cotton Tee</h3>
-                        <p class="product-price">$28.00</p>
-                        <p class="product-desc">Relaxed-fit crewneck t-shirt crafted from 240gsm combed organic cotton
-                            with
-                            dropped shoulde</p>
-                        <span class="product-qty">product Size : Medium</span>
-                        <span class="product-qty">Qty: 45 in stock</span>
-                        <span class="product-qty">product type : T-Shirt</span>
-                    </div>
-                </div>
-
-                <div class="product-container">
-                    <div class="product-img-container">
-                        <img src="https://media.cos.com/assets/001/17/55/17559d0d864a1a24ce309233b7577774d604ae5c_xxl-1.jpg?imwidth=2160"
-                            alt="Premium Adult Dog Food" class="product-img">
-                    </div>
-                    <div class="product-detail-container">
-                        <h3 class="product-title">Oversized Heavyweight Cotton Tee</h3>
-                        <p class="product-price">$28.00</p>
-                        <p class="product-desc">Relaxed-fit crewneck t-shirt crafted from 240gsm combed organic cotton
-                            with
-                            dropped shoulde</p>
-                        <span class="product-qty">product Size : Medium</span>
-                        <span class="product-qty">Qty: 45 in stock</span>
-                        <span class="product-qty">product type : T-Shirt</span>
-                    </div>
-                </div>
-
-                <div class="product-container">
-                    <div class="product-img-container">
-                        <img src="https://media.cos.com/assets/001/17/55/17559d0d864a1a24ce309233b7577774d604ae5c_xxl-1.jpg?imwidth=2160"
-                            alt="Premium Adult Dog Food" class="product-img">
-                    </div>
-                    <div class="product-detail-container">
-                        <h3 class="product-title">Oversized Heavyweight Cotton Tee</h3>
-                        <p class="product-price">$28.00</p>
-                        <p class="product-desc">Relaxed-fit crewneck t-shirt crafted from 240gsm combed organic cotton
-                            with
-                            dropped shoulde</p>
-                        <span class="product-qty">product Size : Medium</span>
-                        <span class="product-qty">Qty: 45 in stock</span>
-                        <span class="product-qty">product type : T-Shirt</span>
-                    </div>
-                </div>
 
 
             </div>
@@ -348,6 +281,7 @@
         </div>
     </section>
 
+    <script src="js/app.js"></script>
 </body>
 
 </html>
