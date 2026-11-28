@@ -1,5 +1,6 @@
 const STORAGE_KEY = "fashionRackProducts";
 const SALES_STORAGE_KEY = "fashionRackSales";
+const SUPPLIERS_STORAGE_KEY = "fashionRackSuppliers";
 
 const defaultProducts = [
     {
@@ -104,6 +105,51 @@ const defaultProducts = [
     }
 ];
 
+const defaultSuppliers = [
+    {
+        id: "SUP-001",
+        name: "Apex Knitwear Mills",
+        contact: "Kasun Perera",
+        phone: "+94 77 234 5678",
+        email: "sales@apexknit.lk",
+        category: "T-Shirts",
+        moq: "30 pcs",
+        leadTime: "3-4 days",
+        terms: "Net 15",
+        address: "Colombo",
+        status: "Active"
+    },
+    {
+        id: "SUP-002",
+        name: "Urban Loom Garments",
+        contact: "Nadeesha Silva",
+        phone: "+94 71 890 1122",
+        email: "info@urbanloom.lk",
+        category: "Hoodies",
+        moq: "20 pcs",
+        leadTime: "4-6 days",
+        terms: "Advance 50%",
+        address: "Wattala",
+        status: "Active"
+    },
+    {
+        id: "SUP-003",
+        name: "Ceylon Denim Works",
+        contact: "Roshan Fernando",
+        phone: "+94 76 554 8899",
+        email: "roshan@ceylondenim.lk",
+        category: "Denim & Trousers",
+        moq: "25 pcs",
+        leadTime: "5 days",
+        terms: "COD",
+        address: "Kelaniya",
+        status: "Inactive"
+    }
+];
+
+// ==========================================
+// STORAGE HELPERS
+// ==========================================
 function loadProducts() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
@@ -137,6 +183,23 @@ function saveSalesHistory() {
     localStorage.setItem(SALES_STORAGE_KEY, JSON.stringify(salesHistory));
 }
 
+function loadSuppliers() {
+    const saved = localStorage.getItem(SUPPLIERS_STORAGE_KEY);
+    if (saved) {
+        try {
+            return JSON.parse(saved);
+        } catch (err) {
+            console.error("Failed to parse saved suppliers:", err);
+        }
+    }
+    localStorage.setItem(SUPPLIERS_STORAGE_KEY, JSON.stringify(defaultSuppliers));
+    return [...defaultSuppliers];
+}
+
+function saveSuppliers() {
+    localStorage.setItem(SUPPLIERS_STORAGE_KEY, JSON.stringify(suppliers));
+}
+
 function readImageFileAsDataUrl(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -148,18 +211,19 @@ function readImageFileAsDataUrl(file) {
 
 let products = loadProducts();
 let salesHistory = loadSalesHistory();
+let suppliers = loadSuppliers();
 let selectedProduct = null;
 let cart = [];
 
-// Sync all active views together
 function syncAllViews() {
     renderProducts();
     renderOverview();
     renderReports();
+    renderSuppliers();
 }
 
 // ==========================================
-// 1. INVENTORY RENDER & CRUD
+// INVENTORY RENDER & CRUD
 // ==========================================
 function renderProducts() {
     const container =
@@ -307,7 +371,7 @@ function deleteProduct(event) {
 }
 
 // ==========================================
-// 2. POS SEARCH, CART & CHECKOUT
+// POS SEARCH, CART & CHECKOUT
 // ==========================================
 function searchProduct(event) {
     if (event) event.preventDefault();
@@ -540,7 +604,7 @@ function downloadBillPDF() {
 }
 
 // ==========================================
-// 3. OVERVIEW DASHBOARD LIVE RENDER
+// OVERVIEW DASHBOARD LIVE RENDER
 // ==========================================
 function renderOverview() {
     const revenueEl = document.getElementById("kpi-revenue");
@@ -696,7 +760,7 @@ function renderOverview() {
 }
 
 // ==========================================
-// 4. REPORTS LIVE CALCULATION & EXPORT
+// REPORTS LIVE CALCULATION & EXPORT
 // ==========================================
 function renderReports() {
     const revenueEl = document.getElementById("rep-total-revenue");
@@ -889,7 +953,164 @@ function exportReportsCSV() {
     document.body.removeChild(link);
 }
 
-// Expose globals
+// ==========================================
+// SUPPLIERS DIRECTORY & CRUD
+// ==========================================
+function parseLeadDays(leadStr) {
+    const matches = String(leadStr || "").match(/\d+/g);
+    if (!matches || matches.length === 0) return null;
+    const nums = matches.map(Number);
+    return nums.reduce((sum, n) => sum + n, 0) / nums.length;
+}
+
+function renderSupplierStats(list) {
+    const totalEl = document.getElementById("total-suppliers");
+    const activeEl = document.getElementById("active-suppliers");
+    const leadEl = document.getElementById("avg-lead-time");
+
+    if (!totalEl || !activeEl || !leadEl) return;
+
+    const activeCount = list.filter((s) => String(s.status).toLowerCase() === "active").length;
+    const parsedDays = list
+        .map((s) => parseLeadDays(s.leadTime))
+        .filter((d) => d !== null);
+
+    const avgDays = parsedDays.length > 0
+        ? Math.round(parsedDays.reduce((a, b) => a + b, 0) / parsedDays.length)
+        : 0;
+
+    totalEl.textContent = `${list.length}`;
+    activeEl.textContent = `${activeCount}`;
+    leadEl.textContent = `${avgDays} ${avgDays === 1 ? "Day" : "Days"}`;
+}
+
+function renderSuppliers() {
+    const tbody = document.getElementById("suppliers-table-body");
+    if (!tbody) return;
+
+    suppliers = loadSuppliers();
+    renderSupplierStats(suppliers);
+
+    const query = document.getElementById("supplier-search")?.value.trim().toLowerCase() || "";
+    const filtered = !query
+        ? suppliers
+        : suppliers.filter((s) => {
+            const hay = [
+                s.id,
+                s.name,
+                s.contact,
+                s.phone,
+                s.email,
+                s.category,
+                s.address,
+                s.terms,
+                s.status
+            ]
+                .join(" ")
+                .toLowerCase();
+            return hay.includes(query);
+        });
+
+    if (filtered.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7" style="text-align:center; opacity:0.7;">No matching suppliers found.</td>
+            </tr>
+        `;
+        return;
+    }
+
+    tbody.innerHTML = filtered.map((s) => {
+        const isActive = String(s.status).toLowerCase() === "active";
+        const badgeClass = isActive ? "active" : "inactive";
+        const subLine = [s.contact, s.address].filter(Boolean).join(" • ") || "—";
+
+        return `
+            <tr>
+                <td>${s.id}</td>
+                <td>
+                    <div class="cell-stack">
+                        <span class="cell-primary">${s.name}</span>
+                        <span class="cell-sub">${subLine}</span>
+                    </div>
+                </td>
+                <td>${s.category || "—"}</td>
+                <td>
+                    <div class="cell-stack">
+                        <span class="cell-primary">${s.phone || "—"}</span>
+                        <span class="cell-sub">${s.email || "—"}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="cell-stack">
+                        <span class="cell-primary">${s.moq || "—"}</span>
+                        <span class="cell-sub">${s.leadTime || "—"}</span>
+                    </div>
+                </td>
+                <td>${s.terms || "—"}</td>
+                <td><span class="status-badge ${badgeClass}">${s.status || "Active"}</span></td>
+            </tr>
+        `;
+    }).join("");
+}
+
+function saveSupplierFromForm(event) {
+    if (event) event.preventDefault();
+
+    const idInput = document.getElementById("sup-id");
+    const statusInput = document.getElementById("sup-status");
+    const nameInput = document.getElementById("sup-name");
+    const contactInput = document.getElementById("sup-contact");
+    const phoneInput = document.getElementById("sup-phone");
+    const emailInput = document.getElementById("sup-email");
+    const categoryInput = document.getElementById("sup-category");
+    const moqInput = document.getElementById("sup-moq");
+    const leadInput = document.getElementById("sup-lead");
+    const termsInput = document.getElementById("sup-terms");
+    const addressInput = document.getElementById("sup-address");
+
+    const name = nameInput?.value.trim() || "";
+    const phone = phoneInput?.value.trim() || "";
+
+    if (!name || !phone) {
+        alert("Please enter both Supplier Name and Phone / WhatsApp.");
+        return;
+    }
+
+    const enteredId = idInput?.value.trim() || `SUP-${String(suppliers.length + 1).padStart(3, "0")}`;
+
+    const record = {
+        id: enteredId,
+        name,
+        contact: contactInput?.value.trim() || "",
+        phone,
+        email: emailInput?.value.trim() || "",
+        category: categoryInput?.value || "T-Shirts",
+        moq: moqInput?.value.trim() || "",
+        leadTime: leadInput?.value.trim() || "",
+        terms: termsInput?.value.trim() || "",
+        address: addressInput?.value.trim() || "",
+        status: statusInput?.value || "Active"
+    };
+
+    const existingIndex = suppliers.findIndex(
+        (item) => String(item.id).toLowerCase() === enteredId.toLowerCase()
+    );
+
+    if (existingIndex !== -1) {
+        suppliers[existingIndex] = record;
+    } else {
+        suppliers.push(record);
+    }
+
+    saveSuppliers();
+    renderSuppliers();
+    document.getElementById("supplier-form")?.reset();
+}
+
+// ==========================================
+// GLOBAL EXPORTS & EVENT LISTENERS
+// ==========================================
 window.addProduct = addProduct;
 window.updateProduct = updateProduct;
 window.deleteProduct = deleteProduct;
@@ -899,27 +1120,42 @@ window.buyNow = buyNow;
 window.downloadBillPDF = downloadBillPDF;
 window.renderOverview = renderOverview;
 window.renderReports = renderReports;
+window.renderSuppliers = renderSuppliers;
+window.saveSupplierFromForm = saveSupplierFromForm;
 
 // Cross-tab synchronization when localStorage changes
 window.addEventListener("storage", (e) => {
-    if (e.key === STORAGE_KEY || e.key === SALES_STORAGE_KEY) {
+    if (
+        e.key === STORAGE_KEY ||
+        e.key === SALES_STORAGE_KEY ||
+        e.key === SUPPLIERS_STORAGE_KEY
+    ) {
         products = loadProducts();
         salesHistory = loadSalesHistory();
+        suppliers = loadSuppliers();
         syncAllViews();
     }
 });
 
 // Initialize on page load
 document.addEventListener("DOMContentLoaded", () => {
+    // Inventory CRUD
     document.getElementById("add-product-form")?.addEventListener("submit", addProduct);
     document.getElementById("update-product-form")?.addEventListener("submit", updateProduct);
     document.getElementById("delete-product-form")?.addEventListener("submit", deleteProduct);
+
+    // POS
     document.querySelector(".search-btn")?.addEventListener("click", searchProduct);
     document.getElementById("searchtxt")?.addEventListener("input", searchProduct);
 
+    // Reports
     document.getElementById("report-category-filter")?.addEventListener("change", renderReports);
     document.getElementById("export-csv-btn")?.addEventListener("click", exportReportsCSV);
     document.getElementById("print-report-btn")?.addEventListener("click", () => window.print());
+
+    // Suppliers
+    document.getElementById("supplier-form")?.addEventListener("submit", saveSupplierFromForm);
+    document.getElementById("supplier-search")?.addEventListener("input", renderSuppliers);
 
     syncAllViews();
     renderCart();
