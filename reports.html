@@ -40,8 +40,153 @@
             </div>
 
             <div class="right-container reports-layout">
+                <div class="right-container reports-layout">
 
-                
+                    <!-- Top Toolbar -->
+                    <div class="glass-panel report-toolbar">
+                        <div class="toolbar-left">
+                            <h3 class="panel-title">Business &amp; Inventory Reports</h3>
+                            <span class="panel-sub" id="report-sync-label">Live synced with Inventory &amp; POS</span>
+                        </div>
+
+                        <div class="toolbar-controls">
+                            <select id="report-category-filter" class="toolbar-select">
+                                <option value="all" selected>All Categories</option>
+                                <option value="T-Shirt">T-Shirts</option>
+                                <option value="Skirt">Skirts</option>
+                                <option value="Trousers">Trousers</option>
+                                <option value="Shirts">Shirts</option>
+                            </select>
+
+                            <button type="button" class="export-btn" id="print-report-btn">
+                                <i class='bx bx-printer'></i> Print
+                            </button>
+                            <button type="button" class="export-btn primary-export" id="export-csv-btn">
+                                <i class='bx bx-download'></i> Export CSV
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 4 Live KPI Cards -->
+                    <div class="report-kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <span class="kpi-label">Total POS Revenue</span>
+                                <i class='bx bx-dollar-circle kpi-icon green'></i>
+                            </div>
+                            <h2 class="kpi-value green-text" id="rep-total-revenue">$0.00</h2>
+                            <span class="kpi-trend neutral" id="rep-total-orders">0 completed bills</span>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <span class="kpi-label">Stock Valuation</span>
+                                <i class='bx bx-closet kpi-icon blue'></i>
+                            </div>
+                            <h2 class="kpi-value" id="rep-stock-valuation">$0.00</h2>
+                            <span class="kpi-trend neutral" id="rep-total-units">0 units in stock</span>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <span class="kpi-label">Units Sold (POS)</span>
+                                <i class='bx bx-shopping-bag kpi-icon green'></i>
+                            </div>
+                            <h2 class="kpi-value" id="rep-units-sold">0</h2>
+                            <span class="kpi-trend positive" id="rep-top-seller">Top: —</span>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <span class="kpi-label">Low Stock Alerts</span>
+                                <i class='bx bx-error-circle kpi-icon amber'></i>
+                            </div>
+                            <h2 class="kpi-value" id="rep-low-stock">0</h2>
+                            <span class="kpi-trend neutral">Items below 15 units</span>
+                        </div>
+                    </div>
+
+                    <!-- Middle Split: Category Breakdown + Size Demand & Recent Bills -->
+                    <div class="reports-mid-grid">
+                        <div class="glass-panel">
+                            <div class="panel-header">
+                                <h3 class="panel-title">Inventory &amp; Sales by Category</h3>
+                                <span class="panel-sub">Live Stock vs. Sold</span>
+                            </div>
+
+                            <div class="table-wrapper">
+                                <table class="report-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Category</th>
+                                            <th>In Stock</th>
+                                            <th>Stock Value</th>
+                                            <th>Units Sold</th>
+                                            <th>POS Revenue</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="rep-category-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel">
+                            <div class="panel-header">
+                                <h3 class="panel-title">Stock by Size</h3>
+                                <span class="panel-sub">Current Rack Distribution</span>
+                            </div>
+
+                            <div class="size-pills-grid" id="rep-size-grid"></div>
+
+                            <div class="panel-header" style="margin-top: 6px;">
+                                <h3 class="panel-title">Recent POS Bills</h3>
+                                <span class="panel-sub">Latest Checkouts</span>
+                            </div>
+
+                            <div class="table-wrapper">
+                                <table class="report-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Bill #</th>
+                                            <th>Items</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="rep-bills-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Panel: Live Product Stock & Movement Table -->
+                    <div class="glass-panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">Product Stock &amp; Sales Report</h3>
+                            <span class="panel-sub" id="rep-product-count">0 products</span>
+                        </div>
+
+                        <div class="table-wrapper">
+                            <table class="report-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Product</th>
+                                        <th>Size</th>
+                                        <th>Type</th>
+                                        <th>Unit Price</th>
+                                        <th>In Stock</th>
+                                        <th>Units Sold</th>
+                                        <th>Revenue</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rep-products-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
 
             </div>
     </section>
