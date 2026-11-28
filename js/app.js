@@ -2,25 +2,105 @@ const STORAGE_KEY = "fashionRackProducts";
 
 const defaultProducts = [
     {
-        id: "PTS001",
-        name: "Oversized Heavyweight Cotton Tee",
-        price: 28.00,
-        size: "Medium",
-        qty: 45,
+        id: "TS001S",
+        name: "T-Shirts",
+        price: 18.00,
+        size: "Small",
+        qty: 50,
         type: "T-Shirt",
-        imgUrl: "https://media.cos.com/assets/001/17/55/17559d0d864a1a24ce309233b7577774d604ae5c_xxl-1.jpg?imwidth=2160",
-        description: "Relaxed-fit crewneck t-shirt crafted from 240gsm combed organic cotton."
+        imgUrl: "https://image.hm.com/assets/hm/fb/1e/fb1ec5f3e79a3009b91bc9f12dc45156f01ded57.jpg?imwidth=768",
+        description: "A comfortable, stylish cotton T-shirt designed. Made with soft, breathable fabric and a regular fit, Available in multiple colors and sizes."
     },
     {
-        id: "PTS002",
-        name: "Heavyweight Boxy Hoodie",
-        price: 58.00,
+        id: "TS001M",
+        name: "T-Shirts",
+        price: 20.00,
+        size: "Medium",
+        qty: 50,
+        type: "T-Shirt",
+        imgUrl: "https://image.hm.com/assets/hm/fb/1e/fb1ec5f3e79a3009b91bc9f12dc45156f01ded57.jpg?imwidth=768",
+        description: "A comfortable, stylish cotton T-shirt designed. Made with soft, breathable fabric and a regular fit, Available in multiple colors and sizes."
+    },
+    {
+        id: "TS001L",
+        name: "T-Shirts",
+        price: 25.00,
         size: "Large",
-        qty: 12,
-        type: "Hoodie",
-        imgUrl: "https://media.cos.com/assets/001/17/55/17559d0d864a1a24ce309233b7577774d604ae5c_xxl-1.jpg?imwidth=2160",
-        description: "Structured fleece hoodie with drop shoulders."
-    }
+        qty: 50,
+        type: "T-Shirt",
+        imgUrl: "https://image.hm.com/assets/hm/fb/1e/fb1ec5f3e79a3009b91bc9f12dc45156f01ded57.jpg?imwidth=768",
+        description: "A comfortable, stylish cotton T-shirt designed. Made with soft, breathable fabric and a regular fit, Available in multiple colors and sizes."
+    },
+    {
+        id: "TS001XL",
+        name: "T-Shirts",
+        price: 28.00,
+        size: "Extra Large",
+        qty: 50,
+        type: "T-Shirt",
+        imgUrl: "https://image.hm.com/assets/hm/fb/1e/fb1ec5f3e79a3009b91bc9f12dc45156f01ded57.jpg?imwidth=768",
+        description: "A comfortable, stylish cotton T-shirt designed. Made with soft, breathable fabric and a regular fit, Available in multiple colors and sizes."
+    },
+    {
+        id: "SK001M",
+        name: "Skirts",
+        price: 15.00,
+        size: "Medium",
+        qty: 50,
+        type: "Skirt",
+        imgUrl: "https://media.centrepointstores.com/i/centrepoint/PB00046Indigo-PB00046CP26122025_01-2100.jpg?$prodimg-d-prt-pdp$&$quality-standard$&fmt=auto&sm=c",
+        description: "A stylish, lightweight skirt perfect for casual wear and special occasions. Available in various colors and sizes"
+    },
+    {
+        id: "SK001L",
+        name: "Skirts",
+        price: 20.00,
+        size: "Large",
+        qty: 50,
+        type: "Skirt",
+        imgUrl: "https://media.centrepointstores.com/i/centrepoint/PB00046Indigo-PB00046CP26122025_01-2100.jpg?$prodimg-d-prt-pdp$&$quality-standard$&fmt=auto&sm=c",
+        description: "A stylish, lightweight skirt perfect for casual wear and special occasions. Available in various colors and sizes"
+    },
+    {
+        id: "TR001L",
+        name: "Trousers",
+        price: 30.00,
+        size: "Large",
+        qty: 50,
+        type: "Trousers",
+        imgUrl: "https://signature-lk.b-cdn.net/wp-content/uploads/2026/07/SIGNATUREMENSSLIMFITFORMALICONBLACKCOLORTROUSER4.jpg",
+        description: "Comfortable and stylish trousers perfect for everyday and formal wear. Available in various colors and sizes."
+    },
+    {
+        id: "TR001M",
+        name: "Trousers",
+        price: 28.00,
+        size: "Medium",
+        qty: 50,
+        type: "Trousers",
+        imgUrl: "https://signature-lk.b-cdn.net/wp-content/uploads/2026/07/SIGNATUREMENSSLIMFITFORMALICONBLACKCOLORTROUSER4.jpg",
+        description: "Comfortable and stylish trousers perfect for everyday and formal wear. Available in various colors and sizes."
+    },
+    {
+        id: "S001M",
+        name: "Shirts",
+        price: 15.00,
+        size: "Medium",
+        qty: 50,
+        type: "Shirts",
+        imgUrl: "https://signature-lk.b-cdn.net/wp-content/uploads/2026/07/signature-mens-formal-shirt-25-scaled-1.jpg",
+        description: "Stylish and comfortable shirts suitable for casual and formal occasions. Available in various colors and sizes."
+    },
+    {
+        id: "S001L",
+        name: "Shirts",
+        price: 18.00,
+        size: "Large",
+        qty: 50,
+        type: "Shirts",
+        imgUrl: "https://signature-lk.b-cdn.net/wp-content/uploads/2026/07/signature-mens-formal-shirt-25-scaled-1.jpg",
+        description: "Stylish and comfortable shirts suitable for casual and formal occasions. Available in various colors and sizes."
+    },
 ];
 
 function loadProducts() {
@@ -53,7 +133,7 @@ let products = loadProducts();
 let selectedProduct = null;
 let cart = [];
 
-// Render inventory cards (.add-inventory-container)
+
 function renderProducts() {
     const container =
         document.getElementById("inventory-container") ||
@@ -173,7 +253,7 @@ async function updateProduct(event) {
     }
 }
 
-// Delete Product
+
 function deleteProduct(event) {
     if (event) {
         event.preventDefault();
@@ -214,7 +294,7 @@ function deleteProduct(event) {
     }
 }
 
-// POS Search
+
 function searchProduct(event) {
     if (event) {
         event.preventDefault();
@@ -256,7 +336,7 @@ function searchProduct(event) {
     `;
 }
 
-// POS Add to Cart
+
 function addToCart() {
     const queryInput = document.getElementById("searchtxt");
     if (!selectedProduct && queryInput?.value.trim()) {
@@ -308,7 +388,7 @@ function addToCart() {
     }
 }
 
-// Render POS Cart
+
 function renderCart() {
     const cartContainer = document.querySelector(".addcart-container");
     if (!cartContainer) return;
@@ -339,7 +419,7 @@ function renderCart() {
     }).join("");
 }
 
-// POS Buy Now & Bill
+
 function buyNow() {
     const billContainer = document.querySelector(".bill-container");
     if (!billContainer) return;
