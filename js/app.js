@@ -151,6 +151,13 @@ let salesHistory = loadSalesHistory();
 let selectedProduct = null;
 let cart = [];
 
+// Sync all active views together
+function syncAllViews() {
+    renderProducts();
+    renderOverview();
+    renderReports();
+}
+
 // ==========================================
 // 1. INVENTORY RENDER & CRUD
 // ==========================================
@@ -213,8 +220,7 @@ async function addProduct(event) {
 
     products.push(newProduct);
     saveProducts();
-    renderProducts();
-    renderReports();
+    syncAllViews();
 
     document.getElementById("add-product-form")?.reset();
     if (fileInput) fileInput.value = "";
@@ -258,8 +264,7 @@ async function updateProduct(event) {
     if (newDetail !== "") target.description = newDetail;
 
     saveProducts();
-    renderProducts();
-    renderReports();
+    syncAllViews();
 
     document.getElementById("update-product-form")?.reset();
     if (fileInput) fileInput.value = "";
@@ -295,8 +300,7 @@ function deleteProduct(event) {
     console.log("Deleted product:", removedProduct, reason ? `Reason: ${reason}` : "");
 
     saveProducts();
-    renderProducts();
-    renderReports();
+    syncAllViews();
 
     document.getElementById("delete-product-form")?.reset();
     if (fileInput) fileInput.value = "";
@@ -370,8 +374,7 @@ function addToCart() {
 
     selectedProduct.qty -= buyQty;
     saveProducts();
-    renderProducts();
-    renderReports();
+    syncAllViews();
 
     const existingCartItem = cart.find((item) => item.id === selectedProduct.id);
     if (existingCartItem) {
@@ -454,6 +457,7 @@ function buyNow() {
     salesHistory.unshift({
         billNo,
         date: dateStr,
+        paymentMethod: "Card",
         total: grandTotal,
         items: cart.map((item) => ({
             id: item.id,
@@ -466,7 +470,7 @@ function buyNow() {
         }))
     });
     saveSalesHistory();
-    renderReports();
+    syncAllViews();
 
     billContainer.innerHTML = `
         <div class="bill-receipt" id="printable-bill">
@@ -536,7 +540,163 @@ function downloadBillPDF() {
 }
 
 // ==========================================
-// 3. REPORTS LIVE CALCULATION & EXPORT
+// 3. OVERVIEW DASHBOARD LIVE RENDER
+// ==========================================
+function renderOverview() {
+    const revenueEl = document.getElementById("kpi-revenue");
+    const revenueSubEl = document.getElementById("kpi-revenue-sub");
+    const ordersEl = document.getElementById("kpi-orders");
+    const ordersSubEl = document.getElementById("kpi-orders-sub");
+    const stockEl = document.getElementById("kpi-stock");
+    const stockSubEl = document.getElementById("kpi-stock-sub");
+    const lowStockEl = document.getElementById("kpi-low-stock");
+    const lowStockSubEl = document.getElementById("kpi-low-stock-sub");
+
+    if (!revenueEl || !ordersEl || !stockEl || !lowStockEl) return;
+
+    products = loadProducts();
+    salesHistory = loadSalesHistory();
+
+    let totalRevenue = 0;
+    const totalOrders = salesHistory.length;
+    const categorySoldUnits = {};
+    let totalSoldUnits = 0;
+
+    salesHistory.forEach((bill) => {
+        totalRevenue += Number(bill.total) || 0;
+        (bill.items || []).forEach((item) => {
+            const qty = Number(item.qty) || 0;
+            const cat = item.type || item.name || "Other";
+            categorySoldUnits[cat] = (categorySoldUnits[cat] || 0) + qty;
+            totalSoldUnits += qty;
+        });
+    });
+
+    const avgBasket = totalOrders > 0 ? totalRevenue / totalOrders : 0;
+
+    let totalStockUnits = 0;
+    const distinctCategories = new Set();
+    const lowStockItems = [];
+
+    products.forEach((p) => {
+        const qty = Number(p.qty) || 0;
+        totalStockUnits += qty;
+        if (p.type) distinctCategories.add(p.type);
+        if (qty < 15) {
+            lowStockItems.push(p);
+        }
+    });
+
+    revenueEl.textContent = `$${totalRevenue.toFixed(2)}`;
+    if (revenueSubEl) {
+        revenueSubEl.textContent = `${totalSoldUnits} units sold via POS`;
+    }
+
+    ordersEl.textContent = `${totalOrders}`;
+    if (ordersSubEl) {
+        ordersSubEl.textContent = `Avg. basket: $${avgBasket.toFixed(2)}`;
+    }
+
+    stockEl.textContent = `${totalStockUnits}`;
+    if (stockSubEl) {
+        stockSubEl.textContent = `Across ${distinctCategories.size} categories`;
+    }
+
+    lowStockEl.textContent = `${lowStockItems.length} ${lowStockItems.length === 1 ? "Item" : "Items"}`;
+    if (lowStockSubEl) {
+        lowStockSubEl.textContent = "Below 15 units remaining";
+    }
+
+    const salesBody = document.getElementById("recent-sales-body");
+    if (salesBody) {
+        if (salesHistory.length === 0) {
+            salesBody.innerHTML = `
+                <tr>
+                    <td colspan="4" style="text-align:center; opacity:0.7;">No POS transactions yet.</td>
+                </tr>
+            `;
+        } else {
+            salesBody.innerHTML = salesHistory.slice(0, 5).map((bill) => {
+                const itemSummary = (bill.items || [])
+                    .map((i) => `${i.name} (${i.size || "-"}) x${i.qty}`)
+                    .join(", ");
+                const paymentBadge = bill.paymentMethod === "Cash"
+                    ? `<span class="badge badge-cash">Cash</span>`
+                    : `<span class="badge badge-card">Card</span>`;
+
+                return `
+                    <tr>
+                        <td>#${bill.billNo}</td>
+                        <td>${itemSummary}</td>
+                        <td>${paymentBadge}</td>
+                        <td class="amount-cell">$${Number(bill.total).toFixed(2)}</td>
+                    </tr>
+                `;
+            }).join("");
+        }
+    }
+
+    const watchlistEl = document.getElementById("low-stock-list");
+    if (watchlistEl) {
+        if (lowStockItems.length === 0) {
+            watchlistEl.innerHTML = `
+                <div class="watch-item">
+                    <div class="watch-info">
+                        <span class="watch-name">All garments well stocked</span>
+                        <span class="watch-meta">No items below 15 units</span>
+                    </div>
+                    <span class="stock-pill low">OK</span>
+                </div>
+            `;
+        } else {
+            lowStockItems.sort((a, b) => Number(a.qty) - Number(b.qty));
+            watchlistEl.innerHTML = lowStockItems.slice(0, 5).map((item) => {
+                const qty = Number(item.qty) || 0;
+                const pillClass = qty <= 5 ? "critical" : "low";
+                return `
+                    <div class="watch-item">
+                        <div class="watch-info">
+                            <span class="watch-name">${item.name} (${item.id})</span>
+                            <span class="watch-meta">Size: ${item.size || "-"} • ${item.type || "Garment"}</span>
+                        </div>
+                        <span class="stock-pill ${pillClass}">${qty} left</span>
+                    </div>
+                `;
+            }).join("");
+        }
+    }
+
+    const categoryBarsEl = document.getElementById("top-categories-bars");
+    if (categoryBarsEl) {
+        const entries = Object.entries(categorySoldUnits).sort((a, b) => b[1] - a[1]);
+
+        if (entries.length === 0 || totalSoldUnits === 0) {
+            categoryBarsEl.innerHTML = `
+                <p style="font-size:0.82rem; opacity:0.7; margin:4px 0;">
+                    Complete a POS sale to see top-selling categories.
+                </p>
+            `;
+        } else {
+            categoryBarsEl.innerHTML = entries.slice(0, 4).map(([catName, units]) => {
+                const pct = Math.round((units / totalSoldUnits) * 100);
+                return `
+                    <div class="cat-row">
+                        <div class="cat-labels">
+                            <span>${catName}</span>
+                            <span>${pct}% (${units} units)</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: ${pct}%;"></div>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+    }
+}
+
+// ==========================================
+// 4. REPORTS LIVE CALCULATION & EXPORT
 // ==========================================
 function renderReports() {
     const revenueEl = document.getElementById("rep-total-revenue");
@@ -592,12 +752,23 @@ function renderReports() {
     });
 
     revenueEl.textContent = `$${totalRevenue.toFixed(2)}`;
-    document.getElementById("rep-total-orders").textContent = `${salesHistory.length} completed bill(s)`;
-    document.getElementById("rep-stock-valuation").textContent = `$${stockValuation.toFixed(2)}`;
-    document.getElementById("rep-total-units").textContent = `${totalStockUnits} units in stock`;
-    document.getElementById("rep-units-sold").textContent = `${totalUnitsSold}`;
-    document.getElementById("rep-top-seller").textContent = `Top: ${topSellerLabel}`;
-    document.getElementById("rep-low-stock").textContent = `${lowStockCount}`;
+    const repTotalOrdersEl = document.getElementById("rep-total-orders");
+    if (repTotalOrdersEl) repTotalOrdersEl.textContent = `${salesHistory.length} completed bill(s)`;
+
+    const repStockValEl = document.getElementById("rep-stock-valuation");
+    if (repStockValEl) repStockValEl.textContent = `$${stockValuation.toFixed(2)}`;
+
+    const repTotalUnitsEl = document.getElementById("rep-total-units");
+    if (repTotalUnitsEl) repTotalUnitsEl.textContent = `${totalStockUnits} units in stock`;
+
+    const repUnitsSoldEl = document.getElementById("rep-units-sold");
+    if (repUnitsSoldEl) repUnitsSoldEl.textContent = `${totalUnitsSold}`;
+
+    const repTopSellerEl = document.getElementById("rep-top-seller");
+    if (repTopSellerEl) repTopSellerEl.textContent = `Top: ${topSellerLabel}`;
+
+    const repLowStockEl = document.getElementById("rep-low-stock");
+    if (repLowStockEl) repLowStockEl.textContent = `${lowStockCount}`;
 
     const categoryStats = {};
     filteredProducts.forEach((p) => {
@@ -668,7 +839,8 @@ function renderReports() {
     }
 
     const productsBody = document.getElementById("rep-products-body");
-    document.getElementById("rep-product-count").textContent = `${filteredProducts.length} product(s)`;
+    const productCountEl = document.getElementById("rep-product-count");
+    if (productCountEl) productCountEl.textContent = `${filteredProducts.length} product(s)`;
 
     if (productsBody) {
         productsBody.innerHTML = filteredProducts.map((p) => {
@@ -717,6 +889,7 @@ function exportReportsCSV() {
     document.body.removeChild(link);
 }
 
+// Expose globals
 window.addProduct = addProduct;
 window.updateProduct = updateProduct;
 window.deleteProduct = deleteProduct;
@@ -724,17 +897,19 @@ window.searchProduct = searchProduct;
 window.addToCart = addToCart;
 window.buyNow = buyNow;
 window.downloadBillPDF = downloadBillPDF;
+window.renderOverview = renderOverview;
 window.renderReports = renderReports;
 
+// Cross-tab synchronization when localStorage changes
 window.addEventListener("storage", (e) => {
     if (e.key === STORAGE_KEY || e.key === SALES_STORAGE_KEY) {
         products = loadProducts();
         salesHistory = loadSalesHistory();
-        renderProducts();
-        renderReports();
+        syncAllViews();
     }
 });
 
+// Initialize on page load
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("add-product-form")?.addEventListener("submit", addProduct);
     document.getElementById("update-product-form")?.addEventListener("submit", updateProduct);
@@ -746,7 +921,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("export-csv-btn")?.addEventListener("click", exportReportsCSV);
     document.getElementById("print-report-btn")?.addEventListener("click", () => window.print());
 
-    renderProducts();
+    syncAllViews();
     renderCart();
-    renderReports();
 });
